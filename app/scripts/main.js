@@ -39,6 +39,7 @@ form.on('submit', function(e){
 	list.append('<li id=" ' +  item.localId + ' ">'+ item.name + '<span>' + 'X' + '</span>' + '</li>');
 	todos.push(item);
 	this.reset();
+	
 });
 
 // Toggle Open or Closed Item
