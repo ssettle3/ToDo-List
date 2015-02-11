@@ -3,12 +3,14 @@ var ToDo = function(args){
 
 	this.status = 'open';
 	this.name = name;
-	this.checkOff = function(){
-		this.status = 'closed';
-	};
-	this.unCheckOff = function(){
-		this.status = 'open';
-	};
+	this.localId = _.random(1, 9999);
+    this.toggleStatus = function () {
+      if (this.status === 'open') {
+        this.status = 'closed';
+      } else {
+        this.status = 'open';
+      }
+    }
 	this.deleteItem = function(){
 		this.status = 'deleted';
 	}; 
@@ -26,8 +28,8 @@ $('#todo-form').on('submit', function(e){
 	e.preventDefault();
 	var item = new ToDo();
  	item.name = $('#submit').val();
-	list.append('<li id=a' + todos.length + '>' + item.name + '</li');
-	list.append('<span id=b' + todos.length + '>' + 'X' + '</span>')
+	list.append('<li id=" ' +  item.localId + ' ">'+ item.name + '</li');
+	list.append('<span>' + 'X' + '</span>')
 	todos.push(item);
 	this.reset();
 
@@ -35,11 +37,21 @@ $('#todo-form').on('submit', function(e){
 });
 
 // Toggle Click Complete Item
-$('#list-items').on('click', 'li', function(){
+$('#list-items').on('click', 'li', function(event){
+	event.preventDefault();
 	$(this).toggleClass('compl');
 
+	var thisTask = event.target;
+	var thisTaskID = Number(thisTask.id);
+	var thisInstance = _.findWhere(todos, { localId: thisTaskID });
+
+	thisInstance.toggleStatus();
 });
 
 // Delete item from To Do List
+$('#list-items').on('click', 'span', function(){
+	$('li').addClass('hidden');
+	$('span').addClass('hidden');
+});
 
 
