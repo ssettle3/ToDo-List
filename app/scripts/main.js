@@ -16,12 +16,11 @@ var ToDo = function(args){
 	this.toggleDelete = function(){
 		if (this.hidden === false){
 			this.hidden = true;
+			this.status = 'deleted';
 		} else {
 			this.hidden = false;
 		}
 	};
-
-
 };
 
 // Array List of todos to push to
@@ -47,10 +46,10 @@ list.on('click', 'li', function(event){
 	event.preventDefault();
 	$(this).toggleClass('compl');
 
+	// Reflecting status in DOM
 	var thisTask = event.target;
 	var thisTaskID = Number(thisTask.id);
 	var thisInstance = _.findWhere(todos, { localId: thisTaskID });
-
 	thisInstance.toggleStatus();
 });
 
@@ -58,8 +57,16 @@ list.on('click', 'li', function(event){
 list.on('click', 'span', function(event){
 	event.preventDefault();
 
+	// Target
 	var dltTask = $(event.target).parent();
+	
+	// Deletes Item from List
 	$(dltTask).addClass('hidden');
+
+	//Reflecting in DOM
+	var dltTaskId = Number(dltTask[0].id);
+	var taskInstance = _.findWhere(todos, { localId: dltTaskId });
+	taskInstance.toggleDelete();
 
 });
 
