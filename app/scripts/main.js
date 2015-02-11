@@ -3,6 +3,7 @@ var ToDo = function(args){
 
 	this.status = 'open';
 	this.name = name;
+	this.hidden = false;
 	this.localId = _.random(1, 9999);
     this.toggleStatus = function () {
       if (this.status === 'open') {
@@ -10,10 +11,16 @@ var ToDo = function(args){
       } else {
         this.status = 'open';
       }
-    }
-	this.deleteItem = function(){
-		this.status = 'deleted';
-	}; 
+    };
+
+	this.toggleDelete = function(){
+		if (this.hidden === false){
+			this.hidden = true;
+		} else {
+			this.hidden = false;
+		}
+	};
+
 
 };
 
@@ -22,22 +29,21 @@ var todos = [];
 
 // Declare Variables
 var list = $('#list-items');
+var form = $('#todo-form');
+
 
 // Target Input Element and Add Item to todos array
-$('#todo-form').on('submit', function(e){
+form.on('submit', function(e){
 	e.preventDefault();
 	var item = new ToDo();
  	item.name = $('#submit').val();
-	list.append('<li id=" ' +  item.localId + ' ">'+ item.name + '</li');
-	list.append('<span>' + 'X' + '</span>')
+	list.append('<li id=" ' +  item.localId + ' ">'+ item.name + '<span>' + 'X' + '</span>' + '</li>');
 	todos.push(item);
 	this.reset();
-
-
 });
 
-// Toggle Click Complete Item
-$('#list-items').on('click', 'li', function(event){
+// Toggle Open or Closed Item
+list.on('click', 'li', function(event){
 	event.preventDefault();
 	$(this).toggleClass('compl');
 
@@ -49,9 +55,12 @@ $('#list-items').on('click', 'li', function(event){
 });
 
 // Delete item from To Do List
-$('#list-items').on('click', 'span', function(){
-	$('li').addClass('hidden');
-	$('span').addClass('hidden');
+list.on('click', 'span', function(event){
+	event.preventDefault();
+
+	var dltTask = $(event.target).parent();
+	$(dltTask).addClass('hidden');
+
 });
 
 
