@@ -25,6 +25,9 @@ var ToDo = function(args){
 
 // Array List of todos to push to
 var todos = [];
+// Make Data Persistant
+var taskURL = 'http://tiy-atl-fe-server.herokuapp.com/collections/sucker';
+
 
 // Declare Variables
 var list = $('#list-items');
@@ -107,6 +110,19 @@ list.on('click', 'span', function(event){
 	});
 	total.empty().append(deleted.length);
 	incomplete.empty().append(deleted.length);
+
 });
 
+// Make Data Persistant
+var taskURL = 'http://tiy-atl-fe-server.herokuapp.com/collections/poolo';
 
+ // Main Collections
+$.getJSON(taskURL).done(function (data){
+		var todoListS = data;
+		console.log(todoListS);
+  	todos.concat(todoListS);
+
+  	JSON.stringify;
+  $.post(taskURL, todoListS);
+  console.log('yes');
+});
