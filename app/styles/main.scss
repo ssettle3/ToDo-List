@@ -6,7 +6,7 @@
 // Custom Styles
 body {
   background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Bad Script", cursive;
   color: #333;
   width: 1400px;
 }
@@ -15,6 +15,7 @@ body {
   width: 700px;
   margin: 0 auto;
   margin-top: 20px;
+  background: #F8FFA1;
   border: 4px double black;
   border-radius: 10px;
     h1{
@@ -22,7 +23,7 @@ body {
       border-bottom: 1px solid #4183C4;
       text-align: center;
       font-size: 50px;
-      letter-spacing: 20px;
+      letter-spacing: 10px;
       color: #4183C4;
 
     }
@@ -52,11 +53,11 @@ body {
       border: none;
       font-size: 30px;
       float:right;
-      margin-top:-30px;
+      margin-top:-40px;
       margin-left: 100%;
 
     }
-    span:hover{
+    li span:hover{
       color: red;
       cursor: pointer;
     }
@@ -77,6 +78,9 @@ h2{
 .track-items{
   span{
     color: black;
-
+    padding: 5px;
+  }
+  span:first-child{
+    margin-left: 25%;
   }
 }
